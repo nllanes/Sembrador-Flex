@@ -1,0 +1,422 @@
+[
+  {
+    "code": "DMI1",
+    "name": "DMI1 - Opa-Locka",
+    "city": "Miami, FL",
+    "lat": 25.9017,
+    "lng": -80.2503
+  },
+  {
+    "code": "DMI2",
+    "name": "DMI2 - Hialeah",
+    "city": "Miami, FL",
+    "lat": 25.8576,
+    "lng": -80.3085
+  },
+  {
+    "code": "DMI3",
+    "name": "DMI3 - Doral",
+    "city": "Miami, FL",
+    "lat": 25.8194,
+    "lng": -80.3569
+  },
+  {
+    "code": "DMI4",
+    "name": "DMI4 - Medley",
+    "city": "Miami, FL",
+    "lat": 25.8627,
+    "lng": -80.3433
+  },
+  {
+    "code": "DMI5",
+    "name": "DMI5 - Miami Gardens",
+    "city": "Miami, FL",
+    "lat": 25.942,
+    "lng": -80.2456
+  },
+  {
+    "code": "DMI6",
+    "name": "DMI6 - Homestead",
+    "city": "Miami, FL",
+    "lat": 25.4687,
+    "lng": -80.4776
+  },
+  {
+    "code": "DMI7",
+    "name": "DMI7 - Sweetwater",
+    "city": "Miami, FL",
+    "lat": 25.7617,
+    "lng": -80.3731
+  },
+  {
+    "code": "DFL1",
+    "name": "DFL1 - Pompano Beach",
+    "city": "Fort Lauderdale, FL",
+    "lat": 26.2379,
+    "lng": -80.1274
+  },
+  {
+    "code": "DFL2",
+    "name": "DFL2 - Coral Springs",
+    "city": "Fort Lauderdale, FL",
+    "lat": 26.271,
+    "lng": -80.2593
+  },
+  {
+    "code": "DFL3",
+    "name": "DFL3 - Riviera Beach",
+    "city": "West Palm Beach, FL",
+    "lat": 26.7826,
+    "lng": -80.0884
+  },
+  {
+    "code": "DFL4",
+    "name": "DFL4 - Lake Worth",
+    "city": "West Palm Beach, FL",
+    "lat": 26.6168,
+    "lng": -80.0834
+  },
+  {
+    "code": "DFL5",
+    "name": "DFL5 - Winter Garden",
+    "city": "Orlando, FL",
+    "lat": 28.5438,
+    "lng": -81.5789
+  },
+  {
+    "code": "DFL6",
+    "name": "DFL6 - Apopka",
+    "city": "Orlando, FL",
+    "lat": 28.6934,
+    "lng": -81.5122
+  },
+  {
+    "code": "DFL7",
+    "name": "DFL7 - Orlando (Airport area)",
+    "city": "Orlando, FL",
+    "lat": 28.4312,
+    "lng": -81.3089
+  },
+  {
+    "code": "DFL8",
+    "name": "DFL8 - Kissimmee",
+    "city": "Orlando, FL",
+    "lat": 28.292,
+    "lng": -81.4076
+  },
+  {
+    "code": "DFL9",
+    "name": "DFL9 - Ruskin",
+    "city": "Tampa, FL",
+    "lat": 27.7137,
+    "lng": -82.4215
+  },
+  {
+    "code": "DFL10",
+    "name": "DFL10 - Temple Terrace",
+    "city": "Tampa, FL",
+    "lat": 28.0344,
+    "lng": -82.3893
+  },
+  {
+    "code": "DFL11",
+    "name": "DFL11 - Lakeland",
+    "city": "Tampa, FL",
+    "lat": 28.0395,
+    "lng": -81.9498
+  },
+  {
+    "code": "DFL12",
+    "name": "DFL12 - Jacksonville (Westside)",
+    "city": "Jacksonville, FL",
+    "lat": 30.3212,
+    "lng": -81.7279
+  },
+  {
+    "code": "DFL13",
+    "name": "DFL13 - Jacksonville (Southside)",
+    "city": "Jacksonville, FL",
+    "lat": 30.2547,
+    "lng": -81.5493
+  },
+  {
+    "code": "DAT1",
+    "name": "DAT1 - Union City",
+    "city": "Atlanta, GA",
+    "lat": 33.5871,
+    "lng": -84.5424
+  },
+  {
+    "code": "DAT2",
+    "name": "DAT2 - Stone Mountain",
+    "city": "Atlanta, GA",
+    "lat": 33.8081,
+    "lng": -84.1454
+  },
+  {
+    "code": "DAT3",
+    "name": "DAT3 - Alpharetta",
+    "city": "Atlanta, GA",
+    "lat": 34.0754,
+    "lng": -84.2941
+  },
+  {
+    "code": "DHO1",
+    "name": "DHO1 - Houston (NW)",
+    "city": "Houston, TX",
+    "lat": 29.8543,
+    "lng": -95.4916
+  },
+  {
+    "code": "DHO2",
+    "name": "DHO2 - Katy",
+    "city": "Houston, TX",
+    "lat": 29.7858,
+    "lng": -95.8245
+  },
+  {
+    "code": "DHO3",
+    "name": "DHO3 - Stafford",
+    "city": "Houston, TX",
+    "lat": 29.6161,
+    "lng": -95.5577
+  },
+  {
+    "code": "DDL1",
+    "name": "DDL1 - Carrollton",
+    "city": "Dallas, TX",
+    "lat": 32.9537,
+    "lng": -96.8903
+  },
+  {
+    "code": "DDL2",
+    "name": "DDL2 - Forney",
+    "city": "Dallas, TX",
+    "lat": 32.7481,
+    "lng": -96.4719
+  },
+  {
+    "code": "DSA1",
+    "name": "DSA1 - San Antonio (East)",
+    "city": "San Antonio, TX",
+    "lat": 29.456,
+    "lng": -98.3558
+  },
+  {
+    "code": "DNY1",
+    "name": "DNY1 - Edison",
+    "city": "New Jersey, NY metro",
+    "lat": 40.5187,
+    "lng": -74.3488
+  },
+  {
+    "code": "DNY2",
+    "name": "DNY2 - Carteret",
+    "city": "New Jersey, NY metro",
+    "lat": 40.5768,
+    "lng": -74.2268
+  },
+  {
+    "code": "DNY3",
+    "name": "DNY3 - Bronx",
+    "city": "New York, NY",
+    "lat": 40.8176,
+    "lng": -73.886
+  },
+  {
+    "code": "DNY4",
+    "name": "DNY4 - Brooklyn (Red Hook)",
+    "city": "New York, NY",
+    "lat": 40.6782,
+    "lng": -74.006
+  },
+  {
+    "code": "DNY5",
+    "name": "DNY5 - Queens (Jamaica)",
+    "city": "New York, NY",
+    "lat": 40.7028,
+    "lng": -73.7925
+  },
+  {
+    "code": "DLA1",
+    "name": "DLA1 - Hawthorne",
+    "city": "Los Angeles, CA",
+    "lat": 33.9164,
+    "lng": -118.3526
+  },
+  {
+    "code": "DLA2",
+    "name": "DLA2 - Chatsworth",
+    "city": "Los Angeles, CA",
+    "lat": 34.2572,
+    "lng": -118.5951
+  },
+  {
+    "code": "DLA3",
+    "name": "DLA3 - Torrance",
+    "city": "Los Angeles, CA",
+    "lat": 33.8346,
+    "lng": -118.3417
+  },
+  {
+    "code": "DLA4",
+    "name": "DLA4 - Compton",
+    "city": "Los Angeles, CA",
+    "lat": 33.8959,
+    "lng": -118.2201
+  },
+  {
+    "code": "DLA5",
+    "name": "DLA5 - City of Industry",
+    "city": "Los Angeles, CA",
+    "lat": 34.0197,
+    "lng": -117.959
+  },
+  {
+    "code": "DSF1",
+    "name": "DSF1 - Richmond",
+    "city": "San Francisco, CA",
+    "lat": 37.9357,
+    "lng": -122.3478
+  },
+  {
+    "code": "DSF2",
+    "name": "DSF2 - Sunnyvale",
+    "city": "San Francisco, CA",
+    "lat": 37.3688,
+    "lng": -122.0363
+  },
+  {
+    "code": "DSD1",
+    "name": "DSD1 - San Marcos",
+    "city": "San Diego, CA",
+    "lat": 33.1434,
+    "lng": -117.1661
+  },
+  {
+    "code": "DCH1",
+    "name": "DCH1 - Melrose Park",
+    "city": "Chicago, IL",
+    "lat": 41.9006,
+    "lng": -87.8567
+  },
+  {
+    "code": "DCH2",
+    "name": "DCH2 - Markham",
+    "city": "Chicago, IL",
+    "lat": 41.5931,
+    "lng": -87.6914
+  },
+  {
+    "code": "DCH3",
+    "name": "DCH3 - Romeoville",
+    "city": "Chicago, IL",
+    "lat": 41.6475,
+    "lng": -88.0895
+  },
+  {
+    "code": "DCL1",
+    "name": "DCL1 - Charlotte (Pineville)",
+    "city": "Charlotte, NC",
+    "lat": 35.0882,
+    "lng": -80.8853
+  },
+  {
+    "code": "DRA1",
+    "name": "DRA1 - Raleigh (Garner)",
+    "city": "Raleigh, NC",
+    "lat": 35.711,
+    "lng": -78.6147
+  },
+  {
+    "code": "DSE1",
+    "name": "DSE1 - Kent",
+    "city": "Seattle, WA",
+    "lat": 47.3809,
+    "lng": -122.2348
+  },
+  {
+    "code": "DSE2",
+    "name": "DSE2 - Everett",
+    "city": "Seattle, WA",
+    "lat": 47.979,
+    "lng": -122.2021
+  },
+  {
+    "code": "DPO1",
+    "name": "DPO1 - Portland (Troutdale)",
+    "city": "Portland, OR",
+    "lat": 45.5389,
+    "lng": -122.3872
+  },
+  {
+    "code": "DPH1",
+    "name": "DPH1 - Phoenix (Tempe)",
+    "city": "Phoenix, AZ",
+    "lat": 33.4142,
+    "lng": -111.9483
+  },
+  {
+    "code": "DPH2",
+    "name": "DPH2 - Goodyear",
+    "city": "Phoenix, AZ",
+    "lat": 33.4353,
+    "lng": -112.3958
+  },
+  {
+    "code": "DLV1",
+    "name": "DLV1 - North Las Vegas",
+    "city": "Las Vegas, NV",
+    "lat": 36.2719,
+    "lng": -115.1272
+  },
+  {
+    "code": "DDV1",
+    "name": "DDV1 - Aurora",
+    "city": "Denver, CO",
+    "lat": 39.7294,
+    "lng": -104.8319
+  },
+  {
+    "code": "DBO1",
+    "name": "DBO1 - Canton",
+    "city": "Boston, MA",
+    "lat": 42.1565,
+    "lng": -71.1449
+  },
+  {
+    "code": "DDC1",
+    "name": "DDC1 - Capitol Heights",
+    "city": "Washington DC",
+    "lat": 38.8765,
+    "lng": -76.9061
+  },
+  {
+    "code": "DPH3",
+    "name": "DPH3 - Upper Marlboro",
+    "city": "Washington DC",
+    "lat": 38.8159,
+    "lng": -76.7497
+  },
+  {
+    "code": "DMS1",
+    "name": "DMS1 - Shakopee",
+    "city": "Minneapolis, MN",
+    "lat": 44.7974,
+    "lng": -93.5272
+  },
+  {
+    "code": "DDT1",
+    "name": "DDT1 - Romulus",
+    "city": "Detroit, MI",
+    "lat": 42.2223,
+    "lng": -83.363
+  },
+  {
+    "code": "DPN1",
+    "name": "DPN1 - Philadelphia (Bristol)",
+    "city": "Philadelphia, PA",
+    "lat": 40.1004,
+    "lng": -74.8518
+  }
+]

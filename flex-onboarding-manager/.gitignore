@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.Python
+build/
+dist/
+
+# Entornos
+.venv/
+venv/
+env/
+.env
+.cred_key_dev
+
+# Bases de datos locales
+*.sqlite3
+*.db
+
+# Evidencias Playwright (screenshots del sembrado)
+var/
+
+# IDE / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Alembic (mantener versions/ y env.py, ignorar caches)
+*.log

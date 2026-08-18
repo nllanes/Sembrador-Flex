@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Flex Onboarding Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="/static/styles.css"/>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <span class="brand__logo">F</span>
+      <div><div class="brand__t">Flex Onboarding Manager</div><div class="brand__s">Estaciones · siembras · checklist · handoff</div></div>
+    </div>
+    <div class="top__right">
+      <button type="button" class="btn btn--quiet" id="btnImport"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Importar CSV</button>
+      <button type="button" class="btn btn--ghost" id="btnSettings" disabled title="Próximamente">Ajustes</button>
+      <button type="button" class="btn btn--primary" id="btnNewSiembra"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Nueva siembra</button>
+    </div>
+  </header>
+
+  <nav class="flow">
+    <button type="button" class="step is-on" data-go="1">
+      <span class="step__n">1</span>
+      <span><span class="step__l">Buscar estaciones</span></span>
+    </button>
+    <span class="step__arrow"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span>
+    <button type="button" class="step" data-go="2">
+      <span class="step__n">2</span>
+      <span><span class="step__l">Siembras</span> <span class="step__c" id="stepCount2">0</span></span>
+    </button>
+    <span class="step__arrow"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span>
+    <button type="button" class="step" data-go="3">
+      <span class="step__n">3</span>
+      <span><span class="step__l">Cuentas activas</span> <span class="step__c" id="stepCount3">0</span></span>
+    </button>
+    <div class="flow__right">
+      <div class="kpi"><span class="kpi__v" id="kpiTotal">0</span><span class="kpi__l">Total</span></div>
+      <span class="kpi__sep"></span>
+      <div class="kpi kpi--proc"><span class="kpi__v" id="kpiProc">0</span><span class="kpi__l">En proceso</span></div>
+      <span class="kpi__sep"></span>
+      <div class="kpi kpi--act"><span class="kpi__v" id="kpiAct">0</span><span class="kpi__l">Activos</span></div>
+    </div>
+  </nav>
+
+  <!-- STAGE 1 -->
+  <section class="ws is-on" id="ws1">
+    <div class="col col--list">
+      <div class="fbar">
+        <div class="fld"><span class="fld__l">Buscar</span>
+          <span class="search"><span class="search__i"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><input class="inp" id="q" placeholder="Código, estación o dirección…"/></span>
+        </div>
+        <div class="fld"><span class="fld__l">Estado</span>
+          <select class="sel" id="fState"><option value="">Todos</option></select>
+        </div>
+        <div class="fld"><span class="fld__l">Ciudad</span><input class="inp" id="fCity" style="width:150px" placeholder="Ej. Miami"/></div>
+        <div class="fld"><span class="fld__l">ZIP code</span><input class="inp" id="fZip" style="width:110px" placeholder="33055"/></div>
+        <div class="fbar__right">
+          <button type="button" class="btn btn--primary" id="apply">Aplicar filtros</button>
+          <button type="button" class="btn btn--quiet" id="clear">Limpiar</button>
+        </div>
+      </div>
+      <div class="chips" id="chips" style="display:none;"><span class="chips__l">Filtros activos:</span></div>
+
+      <div class="lhead">
+        <span class="lhead__t">Estaciones Amazon Flex</span>
+        <span class="lhead__c" id="count">— resultados</span>
+        <span class="lhead__note">Catálogo estático · ubicación real · sin cupos Amazon</span>
+        <div class="lhead__right">
+          <span class="seg"><button type="button" class="is-on" data-grp="state">Por estado</button><button type="button" data-grp="flat">Lista</button></span>
+          <button type="button" class="btn btn--ghost btn--sm" id="selAll">Seleccionar todo</button>
+        </div>
+      </div>
+
+      <div class="scroll" id="stationScroll">
+        <div class="rhead">
+          <span></span><span>Código</span><span>Estación</span><span>Ciudad</span><span>Estado</span><span class="cell--num" style="text-align:right">Siembras</span><span></span>
+        </div>
+        <div id="stations"></div>
+      </div>
+
+      <div class="selbar" id="selbar">
+        <span class="selbar__n" id="selN">0</span>
+        <span class="selbar__t"><b>estaciones</b> seleccionadas · <span id="selMeta">—</span></span>
+        <span class="selbar__sp"></span>
+        <button type="button" class="btn btn--quiet btn--sm" id="selClear">Deseleccionar</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="exportCsv" disabled title="Próximamente">Exportar CSV</button>
+        <button type="button" class="btn btn--primary" id="createBtn">Crear siembras <span class="btn__n" id="createN">0</span></button>
+      </div>
+    </div>
+
+    <aside class="col col--map">
+      <div class="maphead">
+        <span class="maphead__t">Mapa de cobertura</span>
+        <span class="maphead__l" id="mapMeta">Selecciona estaciones para resaltarlas</span>
+      </div>
+      <div id="map"></div>
+      <div class="mapfoot">
+        <div class="mfrow"><span class="k">Estaciones visibles</span><span class="v" id="mfVis">0</span></div>
+        <div class="mfrow"><span class="k">Estados</span><span class="v" id="mfStates">0</span></div>
+        <div class="mfrow"><span class="k">Siembras tuyas</span><span class="v" style="color:var(--amber)" id="mfSiembras">0</span></div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- STAGE 2 -->
+  <section class="ws" id="ws2">
+    <div class="exp-wrap">
+      <div class="exp-list">
+        <div class="fbar">
+          <div class="fld"><span class="fld__l">Buscar</span>
+            <span class="search"><span class="search__i"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><input class="inp" id="expQ" placeholder="Nombre, email o estación…"/></span>
+          </div>
+          <div class="fld"><span class="fld__l">Etapa onboarding</span>
+            <select class="sel" id="expStatus"><option value="">Todas</option></select>
+          </div>
+          <div class="fld"><span class="fld__l">Estación</span>
+            <select class="sel" id="expStation"><option value="">Todas</option></select>
+          </div>
+          <div class="fbar__right"><button type="button" class="btn btn--ghost" id="expApply">Aplicar</button></div>
+        </div>
+        <div class="lhead">
+          <span class="lhead__t">Siembras</span><span class="lhead__c" id="expCount">0 registros</span>
+          <div class="lhead__right">
+            <button type="button" class="btn btn--primary btn--sm" id="expSembrarHead" disabled title="Selecciona siembras pendientes">Sembrar</button>
+          </div>
+        </div>
+        <div class="ehead"><span></span><span>Candidato</span><span>Estación</span><span>Etapa</span><span>Progreso</span><span>Actualizado</span><span></span></div>
+        <div class="scroll scroll--exps">
+          <div id="exps"></div>
+        </div>
+        <div class="selbar" id="expSelbar">
+          <span class="selbar__n" id="expSelN">0</span>
+          <span class="selbar__t"><b>siembras</b> seleccionadas · <span id="expSelMeta">—</span></span>
+          <span class="selbar__sp"></span>
+          <button type="button" class="btn btn--quiet btn--sm" id="expSelClear">Deseleccionar</button>
+          <button type="button" class="btn btn--primary" id="expSembrar" disabled>Sembrar en Amazon Flex <span class="btn__n" id="expSembrarN">0</span></button>
+        </div>
+      </div>
+      <aside class="exp-detail" id="expDetail"></aside>
+    </div>
+  </section>
+
+  <!-- STAGE 3 -->
+  <section class="ws" id="ws3">
+    <div class="empty" style="width:100%" id="activeEmpty">
+      <span class="empty__ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></span>
+      <div class="empty__t">Aún no hay cuentas activas</div>
+      <div class="empty__s">Cuando una siembra complete el checklist y se haga el handoff, la cuenta aparecerá aquí con su estación asignada.</div>
+      <button type="button" class="btn btn--ghost btn--sm" data-go="2">Ver siembras en proceso</button>
+    </div>
+    <div class="scroll hidden" id="activeList" style="width:100%;padding:16px"></div>
+  </section>
+</div>
+
+<!-- CREATE SIEMBRAS MODAL -->
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="modal__h">
+      <span class="brand__logo" style="width:28px;height:28px;font-size:14px;border-radius:8px;">F</span>
+      <span class="modal__t">Crear siembras</span>
+      <button type="button" class="btn btn--quiet btn--sm" id="ovX" style="margin-left:auto">✕</button>
+    </div>
+    <div class="modal__b">
+      <div class="fld" style="margin-bottom:14px;"><span class="fld__l">Cantidad por estación</span>
+        <input class="inp" id="ovQty" type="number" min="1" max="500" value="1"/>
+      </div>
+      <div class="fld" style="margin-bottom:14px;"><span class="fld__l">Prefijo email</span>
+        <input class="inp" id="ovPrefix" value="flexamazon_"/>
+      </div>
+      <div class="fld" style="margin-bottom:14px;"><span class="fld__l">Dominio</span>
+        <input class="inp" id="ovDomain" value="cosecha.it.com"/>
+      </div>
+      <div class="fld" style="margin-bottom:14px;"><span class="fld__l">ZIP región Flex (apply)</span>
+        <input class="inp" id="ovZip" placeholder="Ej. 33101 — se usa al Sembrar"/>
+      </div>
+      <div class="dsec__t" style="margin-bottom:9px;">Estaciones seleccionadas</div>
+      <div class="mlist" id="ovList"></div>
+      <div class="note">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v.01M12 11v5"/></svg>
+        <span>Se creará <b>una siembra por estación</b> (× cantidad) con email y contraseña. El ZIP se usa al Sembrar para pedir la región en Flex (sin licencia/docs).</span>
+      </div>
+    </div>
+    <div class="modal__f">
+      <span style="font-size:12px;color:var(--muted)" id="ovMeta">—</span>
+      <span class="sp"></span>
+      <button type="button" class="btn btn--quiet" id="ovCancel">Cancelar</button>
+      <button type="button" class="btn btn--primary" id="ovOk">Crear <span class="btn__n" id="ovN">0</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT CSV MODAL -->
+<div class="ov" id="importOv">
+  <div class="modal">
+    <div class="modal__h"><span class="modal__t">Importar CSV</span><button type="button" class="btn btn--quiet btn--sm" id="importX" style="margin-left:auto">✕</button></div>
+    <div class="modal__b">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5">Columnas: full_name, assigned_email, zip_code, phone, region, notes, mailbox_password</p>
+      <input type="file" id="importFile" accept=".csv,text/csv"/>
+      <div id="importResult" style="margin-top:12px;font-size:12px"></div>
+    </div>
+    <div class="modal__f"><span class="sp"></span><button type="button" class="btn btn--quiet" id="importCancel">Cerrar</button><button type="button" class="btn btn--primary" id="importOk">Importar</button></div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden" role="status"></div>
+
+<!-- RESULTADO SEMBRAR -->
+<div class="ov" id="sembrarOv">
+  <div class="modal modal--result">
+    <div class="modal__h">
+      <span class="modal__t" id="sembrarOvTitle">Resultado del sembrado</span>
+      <button type="button" class="btn btn--quiet btn--sm" id="sembrarOvX" style="margin-left:auto">✕</button>
+    </div>
+    <div class="modal__b" id="sembrarOvBody"></div>
+    <div class="modal__f">
+      <span style="font-size:12px;color:var(--muted)" id="sembrarOvMeta"></span>
+      <span class="sp"></span>
+      <button type="button" class="btn btn--primary" id="sembrarOvOk">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Un ZIP code por línea. Las líneas vacías y las que empiezan con # se ignoran.
+33101
+90210
+10001
+60601
