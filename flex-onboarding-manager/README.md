@@ -6,9 +6,11 @@ emails asignados, estados del proceso (desde `not_started` hasta
 (timeline) y **handoff** cuando el expediente está listo para vincularse en otro
 sistema.
 
-> ⚠️ **Alcance (importante):**
-> - ✅ **Sí hace:** tracking de estados, checklist, timeline/auditoría y handoff manual.
-> - ❌ **No hace:** NO automatiza el registro en Amazon Flex, NO ejecuta background checks, NO toca el "Monitor SaaS". Solo lleva el control del proceso.
+> ⚠️ **Alcance:**
+> - ✅ **Tracking** de estados, checklist, timeline y handoff.
+> - ✅ **Sembrar** (opcional): cuenta Amazon + región/ZIP en Flex; **para antes** de docs personales.
+> - ❌ **No hace:** background checks de Amazon ni el Monitor SaaS.
+> - Detalle del flujo Sembrar: [`docs/sembrar_idea_y_flujo.md`](docs/sembrar_idea_y_flujo.md).
 
 ## Stack
 
@@ -36,7 +38,11 @@ flex-onboarding-manager/
 ├── learning/              # Laboratorios de aprendizaje (ver más abajo)
 │   ├── playwright_lab/    # Automatización web contra un sandbox legítimo
 │   └── credentials_lab/   # Manejo seguro de credenciales + dominio de correo
-├── docs/flow.md           # Diagramas (Mermaid): estados, flujo y modelo
+├── docs/
+│   ├── sembrar_idea_y_flujo.md  # Idea + flujo completo Sembrar (Amazon + Flex)
+│   ├── flow.md                  # Estados CRM / handoff
+│   ├── flex_apply.md            # Setup Appium / outcomes
+│   └── …
 ├── Dockerfile
 ├── docker-compose.yml
 ├── entrypoint.sh          # Espera a la BD y corre migraciones
