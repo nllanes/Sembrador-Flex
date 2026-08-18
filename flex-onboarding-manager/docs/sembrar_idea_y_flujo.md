@@ -188,14 +188,145 @@ Módulos principales:
 
 ---
 
-## 8. Requisitos operativos (checklist)
+## 8. Qué hay que instalar (setup completo)
 
-1. Dominio con **forward** a Gmail madre verificado (mail externo → alias → madre).
-2. App Password IMAP en `.env`.
-3. `FLEX_CREATION_HEADLESS=false` si esperas CAPTCHA (ventana visible).
-4. Appium en `:4723`, `ANDROID_HOME`, teléfono USB (`FLEX_APPIUM_UDID`), Flex instalada, pantalla desbloqueada.
-5. Siembra con **ZIP** de región (ej. `33101`).
-6. Contraseña Amazon ≥8 con letras y números.
+Sin esto, Sembrar no funciona de punta a punta. Orden recomendado en **Windows**.
+
+### 8.1 Software base
+
+| Pieza | Para qué | Cómo |
+|-------|----------|------|
+| **Python 3.11+** | CRM + Playwright client + Appium client | [python.org](https://www.python.org/) (marca “Add to PATH”) |
+| **Git** | Clonar / push docs | [git-scm.com](https://git-scm.com/) |
+| **Node.js LTS** | Servidor **Appium** (`npm`) | [nodejs.org](https://nodejs.org/) |
+| **Android SDK + `adb`** | Hablar con el teléfono | Android Studio → SDK Platform-Tools |
+| **Teléfono Android real** (recomendado) | App Flex | USB + depuración USB; emulador x86 suele crashear Flex |
+
+Variables de entorno del SDK (sesión o usuario):
+
+```powershell
+$env:ANDROID_HOME = "C:\Program Files (x86)\Android\android-sdk"   # o tu ruta Sdk
+$env:ANDROID_SDK_ROOT = $env:ANDROID_HOME
+$env:Path = "$env:ANDROID_HOME\platform-tools;$env:Path"
+adb devices   # debe listar el UDID del teléfono
+```
+
+### 8.2 Repo CRM (Python)
+
+```powershell
+cd flex-onboarding-manager
+python -m venv .venv
+.\.venv\Scripts\activate
+pip install -r requirements.txt
+python -m playwright install chromium
+```
+
+`requirements.txt` incluye, entre otros: FastAPI, uvicorn, SQLAlchemy, Playwright, **Appium-Python-Client**, selenium, cryptography.
+
+BD local típica:
+
+```env
+DATABASE_URL=sqlite:///./dev.db
+```
+
+Genera `CRED_KEY` (Fernet) si vas a guardar passwords de siembra:
+
+```powershell
+python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+```
+
+Arranque CRM:
+
+```powershell
+# o: .\run_local.ps1
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8080 --reload
+```
+
+Panel: http://127.0.0.1:8080/
+
+### 8.3 Appium (Android)
+
+Una vez (script del repo):
+
+```powershell
+.\scripts\setup_appium.ps1
+```
+
+Equivale a:
+
+```powershell
+npm install -g appium@3
+appium driver install uiautomator2@4.2.9
+```
+
+Cada sesión de trabajo (otra terminal, con `ANDROID_HOME`):
+
+```powershell
+.\scripts\start_appium.ps1
+# o: appium --address 127.0.0.1 --port 4723
+```
+
+En el teléfono:
+
+1. Depuración USB ON; `adb devices` → `device`
+2. Instalar **Amazon Flex** (Play Store o `adb install ….apk`)
+3. Pantalla **desbloqueada** al Sembrar
+
+Healthcheck: http://127.0.0.1:8080/api/meta/appium-status → `"ok": true`
+
+### 8.4 Correo (OTP)
+
+1. Namecheap (o DNS): forward `*@tudominio.com` → Gmail madre  
+2. Gmail: 2FA + [App Password](https://myaccount.google.com/apppasswords)  
+3. Probar: mail desde **otro** correo → `alias@tudominio.com` → llega a la madre  
+
+### 8.5 `.env` mínimo para Sembrar
+
+Copia `.env.example` → `.env` y ajusta:
+
+```env
+DATABASE_URL=sqlite:///./dev.db
+CRED_KEY=...tu_fernet...
+
+FLEX_CREATION_ENABLED=true
+FLEX_CREATION_HEADLESS=false
+FLEX_CREATION_TIMEOUT_MS=120000
+
+FLEX_APPIUM_ENABLED=true
+FLEX_APPIUM_SERVER_URL=http://127.0.0.1:4723
+FLEX_APPIUM_DEVICE_NAME=Android Phone
+FLEX_APPIUM_UDID=baed3e4b0604
+FLEX_APPIUM_ADB_EXEC_TIMEOUT_MS=120000
+FLEX_APP_PACKAGE=com.amazon.flex.rabbit
+FLEX_APP_ACTIVITY=com.amazon.rabbit.android.presentation.core.LaunchActivity
+FLEX_DEFAULT_VEHICLE_TYPE=Sedan
+
+FLEX_WORKER_EMBEDDED=true
+
+IMAP_OTP_ENABLED=true
+IMAP_HOST=imap.gmail.com
+IMAP_PORT=993
+IMAP_MOTHER_EMAIL=tu_gmail_madre@gmail.com
+IMAP_MOTHER_PASSWORD=xxxx-xxxx-xxxx-xxxx
+IMAP_OTP_TIMEOUT_S=300
+IMAP_OTP_POLL_S=5
+
+DEFAULT_SEED_DOMAIN=cosecha.it.com
+```
+
+> **Emulador x86:** Flex ARM suele morir con `kHasAES`. Prefiere **teléfono real**.
+
+Más detalle Appium: [`flex_apply.md`](./flex_apply.md).
+
+### 8.6 Checklist rápido antes de Sembrar
+
+1. Forward dominio → Gmail madre OK  
+2. App Password IMAP en `.env`  
+3. `uvicorn` en `:8080`  
+4. Appium en `:4723` + `adb devices`  
+5. Flex instalada, móvil desbloqueado  
+6. Siembra con ZIP + pass ≥8 (letras+números)  
+7. `FLEX_CREATION_HEADLESS=false` si hay CAPTCHA  
 
 ---
 
@@ -218,4 +349,4 @@ Módulos principales:
 
 ---
 
-*Última actualización: flujo L0 claim/CAPTCHA/OTP + L1 web + L1b Appium + IMAP 300s Inbox/Spam.*
+*Última actualización: flujo L0 claim/CAPTCHA/OTP + L1 web + L1b Appium + IMAP 300s Inbox/Spam + sección de instalación completo.*
